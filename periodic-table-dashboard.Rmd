@@ -1,0 +1,57 @@
+---
+title: "R Fun with the Periodic Table"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    theme: readable
+    vertical_layout: fill
+    runtime: shiny
+    source_code: embed
+    logo: img/afrimapr.png
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(ggplot2)
+library(readxl)
+library(tidyverse)
+library(plotly)
+library(ggmap)
+library(tmaptools)
+
+require(knitr)
+
+
+# Read data
+
+ptable <- read_csv("https://gist.githubusercontent.com/GoodmanSciences/c2dd862cd38f21b0ad36b8f96b4bf1ee/raw/1d92663004489a5b6926e944c1b3d9ec5c40900e/Periodic%2520Table%2520of%2520Elements.csv")
+
+# Read country_data
+# Created from https://io9.gizmodo.com/all-the-elements-arranged-by-the-country-that-discovere-560842860
+
+pcountries <- read_csv("data/pt_countries.csv")
+
+ptable_countries <- ptable %>% 
+  left_join(pcountries, by = c("AtomicNumber" = "atomic_number"))
+
+
+
+```
+
+### Frame 1
+
+```{r}
+```
+
+*** 
+
+Some commentary about Frame 1.
+
+### Frame 2 {data-commentary-width=400}
+
+```{r}
+```
+
+*** 
+
+Some commentary about Frame 2.
