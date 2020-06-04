@@ -2,6 +2,7 @@
 title: "Exploring the Periodic Table with R"
 output: 
   flexdashboard::flex_dashboard:
+    social: [ "twitter", "facebook", "menu" ]
     orientation: rows
     theme: cerulean
     vertical_layout: fill
@@ -23,6 +24,9 @@ library(countrycode)
 library(png)
 library(htmlwidgets)
 library(htmltools)
+library(wordcloud2)
+library(summarytools)
+
 
 require(knitr)
 ```
@@ -69,21 +73,110 @@ load("data/country_geocoding.rda")
 ptable_countries <- ptable_countries %>% 
   left_join(geocoding, by = c("address" = "query")) 
 
+# Clean up
+remove(geocoding)
+
 ```
 
-About {data-icon="fa-columns"}
+About {data-icon="fa-address-card"}
 =============================
 
+Row {data-height=400}
+-----------------------------
 
 ### About this dashboard
 
-This dashboard was developed to showcase a number of awesome features of R (and other programming languages used in data analysis today). Many people still think programming are used by developers to build systems and is out of reach of everyone, but with this dashboard we'd like to show non-programmers how powerful, versatile and fun it is to learn tools like R or Python. 
+This dashboard was developed to showcase a number of awesome features of R (and other programming languages used in data analysis today). Many people still think programming is used by developers to build systems and is out of reach of everyone, but with this dashboard we'd like to show non-programmers how powerful, versatile and fun it is to learn tools like R or Python. 
 
 The dashboard was developed for Nanotechnology Honours students in South Africa hence the focus on the periodic table. 
 
 We hope this resource will assist others to build lessons around R (or other programming languages and data tools such as OpenRefine, FrictionlessData, and more).
 
-_Be inspired!_
+### Reproducible data analysis is fun and good!
+
+```{r words, fig.align="center"}
+
+count_words <- c(8, 4, 8, 7, 5, 
+                 3, 6, 3, 2, 4, 
+                 3, 1, 2, 5, 2, 
+                 4, 5, 6, 3, 2, 
+                 2, 3, 4, 5, 6,
+                 1, 2, 6, 4, 5,
+                 5, 3, 2, 1, 2,
+                 5, 3, 2, 1, 2,
+                 5, 3, 2, 1, 2, 
+                 2, 3, 4, 5, 6, 
+                 5, 3, 2, 1, 2, 
+                 2, 3, 4, 2, 1, 
+                 2, 3, 2, 1, 2, 
+                 2, 3, 2, 1, 2, 
+                 2, 3, 2, 1, 2, 
+                 2, 3, 2, 1, 2, 
+                 2, 3, 2, 1, 2, 
+                 2, 3, 2, 1, 2, 
+                 2, 3, 2, 1, 2)
+count_words <- count_words * count_words
+
+words_df <- data.frame(words = c("fun", "powerful", "reproducible", "transferrable",
+                                 "community", 
+                                 "data science", "collaboration", "free",
+                                 "open source", "R", 
+                                 "Python", "OpenRefine", "FrictionlessData", "tidy data", "employability", 
+                                 "learn", "courses", "online", "you can!", "possibilities", 
+                                 "opportunities", "analysis", "visualisation", "dashboards", "mapping", 
+                                 "gis", "presentations", "reports", "plots", "statistics", 
+                                 "analysis", "manipulation", "wrangling", "cleaning", "combining", 
+                                 "websites", "blogs", "books", "databases", "impress",
+                                 "web apps", "interactive", "documentation", "AI", "machine learning",
+                                 "APIs", "serve", "games", "cloud", "modeling", 
+                                 "programming", "scripts", "calculate", "mean", "descriptive", 
+                                 "present", "teach", "share", "open", "data",
+                                 "geography", "chemistry", "science", "humanities", "social", 
+                                 "grow", "chemistry", "biology", "genomics", "stats",
+                                 "analysis", "learn", "new", "skills", "wonderful",
+                                 "amazing", "cool", "interesting", "novel", "exciting",
+                                 "will", "growth", "mindset", "can", "do",
+                                 "challenge", "adventure", "achieve", "achievement", "CV",
+                                 "resume", "expand", "imagine", "super", "strength"),
+                       freq = count_words)
+
+
+cloud <- wordcloud2(data = words_df, size=0.3, shape = "circle", color = rep_len(c("#ffbe0b", "#fb5607", "#ff006e", "#8338ec", "#3a86ff"), nrow(words_df)), fontFamily= "mono")
+
+# Clean up 
+remove(count_words, words_df, cloud)
+
+```
+
+<a href="https://ropensci.github.io/reproducibility-guide/sections/introduction/"><img src="img/cloud.png" alt="wordcloud"></a>
+
+
+
+Row
+----------------------------
+
+### Resources for learning R
+
+Here are a few good resources if you'd like to jump in:
+
+- RStudio suggests [6 Ways to Begin with R](https://education.rstudio.com/learn/beginner/)
+- We've found that it's really important to find a community. You can join the [Carpentries community](https://carpentries.org) to learn about upcoming workshops in your region and to get access to awesome resources
+- Twitter is very powerful and there are loads of handles to follow:
+    - [rstudio](https://twitter.com/rstudio)
+    - [AfricaRUsers](https://twitter.com/AfricaRUsers)
+    - [WeAreRLadies](https://twitter.com/WeAreRLadies)
+    - many, many more!
+    
+### Dashboard Instructions
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: CC BY 4.0](https://licensebuttons.net/l/by/4.0/80x15.png)](https://creativecommons.org/licenses/by/4.0/)
+
+The dashboard is like a storyboard - different pages can be accessed by clicking on the tabs at the top of the page (i.e. [About](#about), [Periodic Table](#periodic-table), [Data](#data), [Analysis](#analysis), [Visualisation](visualisation), [Maps](maps), and [Timeline](timeline)).
+
+The source code is also available. The project lives in a [Github repository](https://github.com/anelda/data-intro) and is published under an open license to encourage reuse.
+
+  
 
 Periodic Table {data-icon="fa-columns"}
 =============================
@@ -134,7 +227,78 @@ Row
 datatable(ptable, class = 'cell-border stripe', caption="Source: https://gist.github.com/GoodmanSciences/c2dd862cd38f21b0ad36b8f96b4bf1ee")
 ```
 
+Analysis {data-icon="fa-binoculars"}
+===================================
 
+Row
+----------------------
+
+### Descriptive statistics
+
+```{r statistics}
+
+descr_table <- ptable %>% 
+  select(Density, MeltingPoint, BoilingPoint)
+
+print(descr(descr_table), method = 'render', table.classes = 'st-small')
+
+# Clean up
+remove(descr_table)
+```
+
+Visualisation {data-icon="fa-chart-bar"}
+================================
+
+Row
+----------------------
+
+### Density distribution for different element types
+
+```{r results='asis'}
+
+analysis1 <- ptable %>% 
+  select(Element, Type, Density) %>% 
+  filter(!is.na(Type), !is.na(Density)) %>% 
+  group_by(Type) %>% 
+  ggplot(aes(x=Type, y=Density, color=Type)) +
+  geom_boxplot() +
+  geom_jitter(position=position_jitter(0.2)) +
+  labs(y="Density", x="Element type") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+
+analysis1
+
+# Clean up
+remove(analysis1)
+```
+
+### Bubble plot - Boiling point vs Melting point vs Density
+
+```{r }
+
+analysis2 <- ptable %>%
+  # Remove NAs
+  filter(!is.na(MeltingPoint), !is.na(BoilingPoint), !is.na(Density)) %>% 
+  # Reorder countries to having big bubbles on top
+  arrange(desc(Density)) %>%
+  mutate(Element = factor(Element, Element)) %>%
+  # prepare text for tooltip
+  mutate(text = paste("Element: ", Element, "\nBoilingPoint: ", BoilingPoint, "\nMeltingPoint: ", MeltingPoint, "\nDensity: ", Density, sep="")) %>%
+  # Classic ggplot
+  ggplot( aes(x=BoilingPoint, y=MeltingPoint, size = Density, color = Type, text=text)) +
+    geom_point(alpha=0.7) +
+    scale_size(range = c(1.4, 14), name="Boiling Point") +
+    theme(legend.position="none")
+
+# turn ggplot interactive with plotly
+analysis2_plot <- ggplotly(analysis2, tooltip="text")
+analysis2_plot
+
+# Clean up
+remove(analysis2_plot, analysis2)
+
+```
 
 Maps {data-icon="fa-globe-africa"}
 ==================
@@ -183,11 +347,9 @@ unique_markers_map <- leaflet(map_table) %>%
 unique_markers_map
 
 # Clean up
-remove(new, icons, unique_markers_map)
+remove(new, icons, unique_markers_map, map_count, map_table)
 
 ```
-
-
 
 Timeline {data-icon="fa-calendar-alt"}
 ====================
@@ -203,7 +365,7 @@ earliest_element <-  ptable %>% filter(Year == earliest_year)
 valueBox(earliest_element$Element, caption = paste0("Earliest element discovered"," (", earliest_year, ")"),color = "#70A2F2")
 
 # Clean up
-remove(earliest_year, earliest_element, earliest)
+remove(earliest_year, earliest_element)
 
 ```
 
@@ -342,4 +504,7 @@ timeline_plot<-timeline_plot+geom_text(data=year_df, aes(x=year_date_range,y=-0.
 # Show text for each milestone
 timeline_plot<-timeline_plot+geom_text(aes(y=text_position,label=Element),size=2.5)
 print(timeline_plot)
+
+# Clean up
+remove(timeline_plot, year_df, year_date_range, year_format, year_buffer, sort_date, text_offset, line_pos, type_levels, type_colors)
 ```
