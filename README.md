@@ -46,13 +46,13 @@ I included an image of the periodic table to help learners consider the wealth o
 - *Image*: Image by [Gerd Altmann](https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1059755) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1059755)
 - *Free images resource*: I love [Pixabay](https://pixabay.com) and use it for almost all my projects, including presentations, websites, and more
 
-##  Data
+## Data
 
 ![Data table](img/periodic3.png)
 
 The data is displayed here to help learners connect the original image of the periodic table, with the tabular format, allowing them to see how colours and position in the periodic table can be converted to machine-readable data in a table. 
 
-The coloured boxes at the top of the page is a feature of flexdashboard - valueboxes. The valueboxes can display any single number or word that you identify from your data. It is possible to customise the size of valueboxes, colour, icon, content, and the number of valueboxes displayed on a page. 
+The coloured boxes at the top of the page is a feature of flexdashboard - valueboxes. The valueboxes can display any single number or word that you identify from your data. It is possible to customise the size of valueboxes, colour, icon, content, and the number of valueboxes displayed on a page. Here I've used a Base R function `nrows` in combination with `dplyr` `filter` to calculate the number of rows that fit certain criteria and displayed the resultant number in the valuebox.
 
 - *Data*: https://gist.github.com/GoodmanSciences/c2dd862cd38f21b0ad36b8f96b4bf1ee
 - *R package*: The table is displayed using the DT R package
@@ -100,7 +100,7 @@ One of the things that I've used most often in R, is the mapping functionality. 
 
 I used information obtained from [the image](https://www.jamiebgall.co.uk/periodic-table?pgid=jry6l6ed-6997541b-20fd-431a-86ca-b27a46663898) published by [Dr Jamie Gallagher](https://twitter.com/JamieBGall). A CSV file was created that contained the Element number, and columns for each of the countries' that appear in the image.
 
-I added a column with the name of the capital of each of those countries in order to do programmatic geocoding (obtain coordinates) directly from R. 
+I added a column with the name of the capital of each of those countries in order to do programmatic geocoding (obtain coordinates) directly from R. Using just the country resulted in incorrect (non-specific) geocoding.
 
 The script for geocoding is available at https://github.com/anelda/showcaseR-periodic-table/blob/master/scripts/geocode_countries.R
 
@@ -109,7 +109,36 @@ The script for geocoding is available at https://github.com/anelda/showcaseR-per
 - *R package link*: https://cran.r-project.org/web/packages/tmaptools/tmaptools.pdf
 
 
-#### Data visualisation
+#### Interactive map
+
+- *R package*: leaflet
+- *R pakage link*: https://rstudio.github.io/leaflet/
+- *Useful tutorial*: https://www.earthdatascience.org/courses/earth-analytics/get-data-using-apis/leaflet-r/
 
 
+## Timeline
+
+![Timeline](img/periodic7.png)
+
+We once again find the valueboxes mentioned under the [Data](##Data) section above. 
+
+#### Fixing dates
+
+The first thing to do, is to convert the date values into something R will recognize as a date. 
+
+- *R package*: lubridate
+- *R package link*: https://lubridate.tidyverse.org/
+
+#### Doughnut chart
+
+Here I used a combination of `dplyr` and `ggplot2` discussed above.
+
+#### Timeline plot
+
+In order to get the timeline to display properly in the smaller space available, I limited the number of items shown to only elements discovered after 1950. That was an arbitrary choice based on what looked pretty. There are other timeline packages in R as well.
+
+I've used this package once or twice in projects to communicate the progress with team members.
+
+- *R package*: ggplot2 (as above) but with loads of customisations using additional settings
+- *Tutorial*: https://benalexkeen.com/creating-a-timeline-graphic-using-r-and-ggplot2/
 
