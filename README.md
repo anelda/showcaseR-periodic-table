@@ -10,6 +10,10 @@ We hope this resource will inspire and assist others to build more accessible le
 
 You can view the dashboard at https://rpubs.com/anelda/periodic-table-R
 
+# Cite
+
+Anelda van der Walt. (2020, June 5). Exploring the Periodic Table with R (Version v0.1). Zenodo. http://doi.org/10.5281/zenodo.3878642
+
 # Dashboard components
 
 ## Setup
@@ -120,7 +124,7 @@ The script for geocoding is available at https://github.com/anelda/showcaseR-per
 
 ![Timeline](img/periodic7.png)
 
-We once again find the valueboxes mentioned under the [Data](##Data) section above. 
+We once again find the valueboxes mentioned under the [Data](#Data) section above. 
 
 #### Fixing dates
 
