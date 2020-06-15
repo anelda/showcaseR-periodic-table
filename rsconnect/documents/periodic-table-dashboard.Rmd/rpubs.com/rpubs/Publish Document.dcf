@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/623910/d07e043b840544b2ba32c0824da2d872
+bundleId: https://api.rpubs.com/api/v1/document/623910/d07e043b840544b2ba32c0824da2d872
+url: http://rpubs.com/anelda/623910
+when: 1591977924.78952

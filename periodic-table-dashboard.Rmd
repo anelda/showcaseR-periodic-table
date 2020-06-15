@@ -88,7 +88,7 @@ Row {data-height=400}
 
 This dashboard was developed to showcase a number of awesome features of R (and other programming languages used in data analysis today). Many people still think programming is used by developers to build systems and is out of reach of everyone, but with this dashboard we'd like to show non-programmers how powerful, versatile and fun it is to learn tools like R or Python. 
 
-The dashboard was developed for Nanotechnology Honours students in South Africa hence the focus on the periodic table. 
+The dashboard was developed for Chemistry Honours students in South Africa hence the focus on the periodic table. 
 
 We hope this resource will assist others to build lessons around R (or other programming languages and data tools such as OpenRefine, FrictionlessData, and more).
 
@@ -169,12 +169,25 @@ Here are a few good resources if you'd like to jump in:
     
 ### Dashboard Instructions
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![License: CC BY 4.0](https://licensebuttons.net/l/by/4.0/80x15.png)](https://creativecommons.org/licenses/by/4.0/)
-
 The dashboard is like a storyboard - different pages can be accessed by clicking on the tabs at the top of the page (i.e. [About](#about), [Periodic Table](#periodic-table), [Data](#data), [Analysis](#analysis), [Visualisation](visualisation), [Maps](maps), and [Timeline](timeline)).
 
-The source code is also available. The project lives in a [Github repository](https://github.com/anelda/data-intro) and is published under an open license to encourage reuse.
+##### Data
+
+- Comma-seperated value data for the periodic table was obtained from https://gist.github.com/GoodmanSciences/c2dd862cd38f21b0ad36b8f96b4bf1ee.
+- Country data was obtained from https://www.jamiebgall.co.uk/periodic-table?pgid=jry6l6ed-6997541b-20fd-431a-86ca-b27a46663898 by Dr Jamie Gallagher. The data is not based on the nationality of the researcher(s) but on the institution/funder.
+
+##### Code
+The project lives in a [Github repository](https://github.com/anelda/data-intro) and is published under an open license to encourage reuse.
+
+##### Under the hood
+The data and process along with more information about the packages that were used to create the different pages, are described in the [README file](https://github.com/anelda/showcaseR-periodic-table/blob/master/README.md) in the Github repository. 
+
+_Please cite as_:  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3878642.svg)](https://doi.org/10.5281/zenodo.3878642)
+
+Anelda van der Walt. (2020, June 5). Exploring the Periodic Table with R (Version v0.1). Zenodo. http://doi.org/10.5281/zenodo.3878642
+
+
+
 
   
 
@@ -306,9 +319,9 @@ Maps {data-icon="fa-globe-africa"}
 Row
 ----------
 
-### Where were elements first discovered?
+### Where were funders/institutions based that were involved in discovery of elements?
 
-This map was created by combining data from https://gist.github.com/GoodmanSciences/c2dd862cd38f21b0ad36b8f96b4bf1ee and  https://www.smithsonianmag.com/smart-news/the-periodic-table-of-elemental-discoveries-1773011/ and using OpenStreetMap geocoding through the [`tmaptools`](https://github.com/mtennekes/tmaptools) R package.
+This map was created by combining data from https://gist.github.com/GoodmanSciences/c2dd862cd38f21b0ad36b8f96b4bf1ee and  https://www.jamiebgall.co.uk/periodic-table?pgid=jry6l6ed-6997541b-20fd-431a-86ca-b27a46663898 and using OpenStreetMap geocoding through the [`tmaptools`](https://github.com/mtennekes/tmaptools) R package.
 
 ```{r maps}
 
@@ -336,12 +349,12 @@ unique_markers_map <- leaflet(map_table) %>%
   setView(lng = -31, lat = 42, zoom = 2) %>% 
   addAwesomeMarkers(lng=~lon, lat=~lat, icon=icons,
                     popup=~paste(Element, " discovered by ", Discoverer),
-                    label=~paste(Element, " discovered in ", country_name),
+                    label=~paste(Element, " funder/institution based in ", country_name),
                    clusterOptions = markerClusterOptions()) %>% 
   addLegend("topright", 
             colors =c("lightblue", "lightgray","lightgreen"),
             labels= c("1", "2","3"),
-            title= "Number of countries involved in discovery",
+            title= "Number of countries involved in funding/discovery",
             opacity = 1) 
 
 unique_markers_map
